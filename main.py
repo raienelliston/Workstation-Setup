@@ -1,5 +1,4 @@
 from modules.application_opener import open_application
-from modules.browser_opener import open_browser
 from modules.config_editor import ConfigEditor
 import tkinter as tk
 from tkinter import ttk
@@ -25,7 +24,7 @@ class Main_Window(CTk.CTk):
         s.configure('State_Frames.TFrame', background='red')
 
         main_frame = ttk.Frame(master=self, style='State_Frames.TFrame', padding=10, relief="solid", borderwidth=1)
-        main_frame.pack(fill="both", expand=True)
+        main_frame.pack(fill="both", padx=10, pady=10)
 
         button = CTk.CTkButton(master=self, text="Helo Word")
         button.pack(pady=10, padx=10)
