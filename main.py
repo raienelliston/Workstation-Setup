@@ -2,14 +2,15 @@ from modules.application_opener import open_application
 from modules.browser_opener import open_browser
 from modules.config_editor import ConfigEditor
 import tkinter as tk
-import customtkinter
+from tkinter import ttk
+import customtkinter as CTk
 
-customtkinter.set_appearance_mode("System")
-customtkinter.set_default_color_theme("blue")
+CTk.set_appearance_mode("System")
+CTk.set_default_color_theme("blue")
 
+settings = ConfigEditor("settings.cfg")
 
-
-class Main_Window(customtkinter.CTk):
+class Main_Window(CTk.CTk):
     def __init__(self):
         super().__init__()
 
@@ -18,24 +19,40 @@ class Main_Window(customtkinter.CTk):
         self.create_widgets()
 
     def create_widgets(self):
-        button = customtkinter.CTkButton(master=self, text="Helo Word")
+
+        s = ttk.Style()
+
+        s.configure('State_Frames.TFrame', background='red')
+
+        main_frame = ttk.Frame(master=self, style='State_Frames.TFrame', padding=10, relief="solid", borderwidth=1)
+        main_frame.pack(fill="both", expand=True)
+
+        button = CTk.CTkButton(master=self, text="Helo Word")
         button.pack(pady=10, padx=10)
 
+        # Testing frames
+        
+        test_label = CTk.CTkLabel(main_frame, text="Test Label")
+        test_label.pack(pady=10, padx=10)
+
+        test_button = CTk.CTkButton(main_frame, text="Test Button")
+        test_button.pack(pady=10, padx=10)
+
         # All the dirrent load states
-        for state in ConfigEditor.get_states():
+        for state in settings.get_config("states"):
             None # Add the large tiles to repersent states
 
         # All overlay static buttons
-        edit_button = customtkinter.CTkButton(master=self, text="Edit")
-        edit_button.pack(pady=10, padx=10)
+        edit_button = CTk.CTkButton(master=self, text="Edit")
+        edit_button.pack(pady=10, padx=10, side="left")
         edit_button.tkraise()
 
-        edit_universals = customtkinter.CTkButton(master=self, text="Edit Universals")
-        edit_universals.pack(pady=10, padx=10)
+        edit_universals = CTk.CTkButton(master=self, text="Edit Universals")
+        edit_universals.pack(pady=10, padx=10, side="left")
         edit_universals.tkraise()
 
-        settings_button = customtkinter.CTkButton(master=self, text="Settings")
-        settings_button.pack(pady=10, padx=10)
+        settings_button = CTk.CTkButton(master=self, text="Settings")
+        settings_button.pack(pady=10, padx=10, side="left")
         settings_button.tkraise()
 
 def main():
